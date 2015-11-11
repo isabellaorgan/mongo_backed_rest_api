@@ -17,19 +17,21 @@ describe('album routes', function() {
 	});
 
 	it('should be able to add an album', function(done) {
-		var albumData = {name: 'test album'};
+		var albumData = {name: 'test album', genre: 'unknown', decade: 'unknown'};
 		chai.request('localhost:3000')
 			.post('api/albums')
 			.send(albumData)
 			.end(function(err, res) {
 				expect(err).to.eql(null);
 				expect(res.body.name).to.eql('test album');
+				expect(res.body.genre).to.eql('unknown');
+				expect(res.body.decade).to.eql('unknown');
 				expect(res.body).to.have.property('_id');
 				done();
 			});
 	});
 
-	it('should be able to get all of the albums', function(done) {
+	it('should be able to collect all of the albums', function(done) {
 			chai.request('localhost:3000')
 				.get('api/albums')
 				.end(function(err, res) {
@@ -39,22 +41,22 @@ describe('album routes', function() {
 				});
 	});
 
-	describe('needs an album', function(done) {
+	describe('listen an album', function(done) {
 		beforeEach(function(done) {
-			(new Bear({name: 'test album'})).save(function(err, data) {
+			(new Bear({name: 'test album', genre: 'unknown', decade: 'unknown'})).save(function(err, data) {
 				expect(err).to.eql(null);
 				this.album = data;
 				done();
 			}.bind(this));
 		});
 		
-		it('should be able to modify an album', function(done) {
+		it('should be able to add to the album collection', function(done) {
 			chai.request('localhost:3000')
-				.put('/api/albums/' + this.bear._id)
-				.send({name: 'another album'})
+				.put('/api/albums/' + this.album._id)
+				.send({name: 'another album', genre: 'some other music type', decade: 'not the seventies'})
 				.end(function(err, res) {
 					expect(err).to.eql(null);
-					expect(res.body.msg).to.eql('success');
+					expect(res.body.msg).to.eql('album added');
 					done();
 				});
 		});
@@ -64,10 +66,10 @@ describe('album routes', function() {
 				.delete('/api/albums/' + this.album._id)
 				.end(function(err, res) {
 					expect(err).to.eql(null);
-					expect(res.body.msg).to.eql('success');
+					expect(res.body.msg).to.eql('album used as frisbee');
 					done();
 				});
-		}):
+		});
 	});
 });
 
