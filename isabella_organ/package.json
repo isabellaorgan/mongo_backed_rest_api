@@ -2,7 +2,7 @@
   "name": "isabella_organ",
   "version": "0.1.0",
   "description": "mongo backed rest api",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "node_modules/mocha/bin/mocha test"
   },

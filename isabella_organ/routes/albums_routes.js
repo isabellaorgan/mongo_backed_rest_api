@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var Album = require(__dirname = '/../models/album.js');
+var Album = require(__dirname + '/../models/album.js');
 var handleError = require(__dirname + '/../lib/handleServerError');
 
 var albumsRouter = module.exports = exports = express.Router();
@@ -19,16 +19,6 @@ albumsRouter.post('/albums', bodyParser.json(), function(req, res) {
 		if (err) return handleError(err, res);
 
 		res.json(data);
-	});
-});
-
-albumsRouter.put('/albums/:id', bodyParser.json(), function(req, res) {
-	var albumData = req.body;
-	delete albumData._id;
-	Album.update({_id: req.params.id}, albumData, function(err) {
-		if (err) return handleError(err, res);
-
-		res.json({msg: 'album added'});
 	});
 });
 
