@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var Album = require(__dirname = '/../models/album.js');
+var Album = require(__dirname + '/../models/album.js');
 var handleError = require(__dirname + '/../lib/handleServerError');
 
 var albumsRouter = module.exports = exports = express.Router();
