@@ -1,13 +1,13 @@
 var chai = require('chai');
 var expect = require('chai').expect;
 var chaihttp = require('chai-http');
-var mongoose = require('mongoose');
 
 chai.use(chaihttp);
 
 process.env.MONGOLAB_URI = 'mongodb://localhost/album_test';
 require(__dirname + '/../server.js');
-var Album = require(__dirname + '/.../models/album');
+var mongoose = require('mongoose');
+var Album = require(__dirname + '/../models/album');
 
 describe('album routes', function() {
 	after(function(done) {
@@ -43,7 +43,7 @@ describe('album routes', function() {
 
 	describe('listen an album', function(done) {
 		beforeEach(function(done) {
-			(new Bear({name: 'test album', genre: 'unknown', decade: 'unknown'})).save(function(err, data) {
+			(new Album({name: 'test album', genre: 'unknown', decade: 'unknown'})).save(function(err, data) {
 				expect(err).to.eql(null);
 				this.album = data;
 				done();
