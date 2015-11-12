@@ -3,7 +3,7 @@ var express = require('express');
 var app = express;
 var albumsRouter = require(__dirname + '/routes/albums_routes.js');
 
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/album_dev');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/album_stream _dev');
 
 app.use('/api', albumsRouter);
 

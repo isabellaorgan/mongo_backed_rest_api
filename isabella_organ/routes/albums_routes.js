@@ -22,16 +22,6 @@ albumsRouter.post('/albums', bodyParser.json(), function(req, res) {
 	});
 });
 
-albumsRouter.put('/albums/:id', bodyParser.json(), function(req, res) {
-	var albumData = req.body;
-	delete albumData._id;
-	Album.update({_id: req.params.id}, albumData, function(err) {
-		if (err) return handleError(err, res);
-
-		res.json({msg: 'album added'});
-	});
-});
-
 albumsRouter.delete('/albums/:id', function(req, res) {
 	Album.remove({_id: req.params.id}, function(err) {
 		if (err) return handleError(err, res);
