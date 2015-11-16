@@ -5,8 +5,8 @@ var expect = chai.expect;
 process.env.MONGO_URL = 'mongodb://localhost/notes-test';
 require(__dirname + '/../server');
 var mongoose = require ('mongoose');
-var User = require(__dirname + '/../models/user');
-var eatauth = require(__dirname = '/../lib/eat_auth');
+var User = require(__dirname + '/../models/users');
+var eatauth = require(__dirname + '/../lib/eat_auth');
 var httpBasic = require(__dirname + '/../lib/http_basic');
 
 describe('httpbasic', function() {
@@ -36,7 +36,7 @@ describe('auth', function() {
 	it('should be able to create a user', function(done) {
 		chai.request('localhost:3000/api')
 			.post('/signup')
-			.send({username: 'testuser', password: 'foobar123'});
+			.send({username: 'testuser', password: 'foobar123'})
 			.end(function(err, res) {
 				expect(err).to.eql(null);
 				expect(res.body.token).to.have.length.above(0);

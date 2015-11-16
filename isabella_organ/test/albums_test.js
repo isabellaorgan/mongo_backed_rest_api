@@ -31,21 +31,22 @@ describe('album routes', function() {
 	});
 
 		describe('user already in database', function() {
-		before(function(done) {
-			var user = new User();
-			user.username = 'test';
-			user. basic.username = 'test';
-			user.generateHash('foobar123', function(err, res) {
-				if (err) throw err;
-				user.save(function(err, data) {
-					if (err) throw error;
-					user.generateToken(function(err, token) {
-						if (err) throw err;
-						this.token = token;
-						done();
+			before(function(done) {
+				var user = new User();
+				user.username = 'test';
+				user. basic.username = 'test';
+				user.generateHash('foobar123', function(err, res) {
+					if (err) throw err;
+					user.save(function(err, data) {
+						if (err) throw error;
+						user.generateToken(function(err, token) {
+							if (err) throw err;
+							this.token = token;
+							done();
+						}.bind(this));
 					}.bind(this));
 				}.bind(this));
-			}.bind(this));
+			});
 		});
 
 	it('should be able to collect all of the albums', function(done) {
@@ -58,30 +59,14 @@ describe('album routes', function() {
 				});
 	});
 
-	// describe('listen to an album', function(done) {
-	// 	beforeEach(function(done) {
-	// 		(new Album({name: 'test album', genre: 'unknown', decade: 'unknown'})).save(function(err, data) {
-	// 			expect(err).to.eql(null);
-	// 			this.album = data;
-	// 			done();
-	// 		}.bind(this));
-	// 	});
+	describe('listen to an album', function(done) {
+		beforeEach(function(done) {
+			(new Album({name: 'test album', genre: 'unknown', decade: 'unknown'})).save(function(err, data) {
+				expect(err).to.eql(null);
+				this.album = data;
+				done();
+			}.bind(this));
+		});
 		
-	// });
+	});
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
