@@ -1,19 +1,30 @@
 var eat = require ('eat');
-var User = require(__dirname + '/../models/users');
-var handleError = require(__dirname + '/handleServerError');
+var User = require(__dirname + '/../models/user');
+//var handleError = require(__dirname + '/handleServerError');
 
-module.exports = function(req, res, next) {
-	var encryptedToken = req.headers.token || (req.body? req.body.token: undefined);
-	if (!encryptedToken)
-		return res.status(401).json({msg: 'could not authenticat'});
-	eat.decode(encryptedToken, process.env.APP_SECRET, function(err, token) {
-		if (err) return handleError(err, res);
+module.exports = exports = function(req, res, next) {
+	var token = req.headers.token || (req.body)? req.body.token : '';
+	if (!token) {
+		console.log('no token');
+		return res.status(401).json({msg: 'AuthentiCat seyezzz noeee and is wacthing you!!'});
+	}
 
-		User.findOne({_id: token.id}, function(err, user) {
-			if (err) return handleError(err, res);
-			if (!user) return res.status(401).json({msg: 'could not authenticat'});
+	eat.decode(token, process.env.APP_SECRET, function(err, token) {
+		if (err) {
+			console.log(err);
+			return res.status(401).json({msg: 'AuthentiCat seyezzz noeee!!'});
+		}
+	});
+
+	User.findOne({_id: decoded.id}, function(err, user) {
+		if (err) {
+			console.log(err);
+			return res.status(401).json({msg: 'AuthentiCat seyszzz noeee!!'});
+		}
+
+		if (!user) {
 			req.user = user;
 			next();
-		});
+		}
 	});
 };

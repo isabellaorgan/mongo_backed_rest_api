@@ -1,6 +1,6 @@
 var express = require('express');
-var User = require (__dirname + '/../models/users');
-varjsonParser = require('body-parser').json();
+var User = require (__dirname + '/../models/user');
+var jsonParser = require('body-parser').json();
 var handleError = require(__dirname + '/../lib/handleServerError');
 var httpBasic = require(__dirname + '/../lib/http_basic');
 
@@ -27,7 +27,7 @@ usersRouter.get('/signin', httpBasic, function(req, res) {
 		if (err) return handleError(err, res);
 
 		if (!user) {
-			console.log('could not autheticat: ' + req.auth.username);
+			console.log('could not authenticat: ' + req.auth.username);
 			return res.status(401).json({msg: 'could not authenticat'});
 		}
 
@@ -45,12 +45,3 @@ usersRouter.get('/signin', httpBasic, function(req, res) {
 		});
 	});
 });
-
-
-
-
-
-
-
-
-

@@ -1,14 +1,18 @@
-module.exports = exports = function(req, res, next) {
-	var userPassEncoded = (req.headers.authorization || ' :').split(' ')[1];
-	var userPassBuf = new Buffer(userPassEncoded, 'base64');
-	var userPassSplit = userPassBuf.toString('utf8').split(':');
-	req.auth = {
-		username: userPassSplit[0],
-		password: userPassSplit[1]
-	};
-	if (!(req.auth.username.length && req.auth.password.length)) {
-		console.log('could not authenticate: ' + req.auth.username);
-		return res.status(401).send({msg: 'could not authenticat'});
+module.exports = function(req, res, next) {
+	try {
+		var authString = req.headers.authorization;
+		var basicString = authString.split(' ')[1];
+		var basicBuffer = new Buffer(basicString, 'base64');
+		var authArray = basicBuffer.toString().split(':');
+		req.auth = {
+			username: authArray[0],
+			password: authArray[1]
+		};
+		debugger;
+		next();
+	} catch(e) {
+		debugger;
+		console.log(e);
+		return res.status(401).json({msg: 'authentiCat seyzzz now!!1'});
 	}
-	next();
 };

@@ -5,7 +5,7 @@ var expect = chai.expect;
 process.env.MONGO_URL = 'mongodb://localhost/notes-test';
 require(__dirname + '/../server');
 var mongoose = require ('mongoose');
-var User = require(__dirname + '/../models/users');
+var User = require(__dirname + '/../models/user');
 var eatauth = require(__dirname + '/../lib/eat_auth');
 var httpBasic = require(__dirname + '/../lib/http_basic');
 
@@ -48,7 +48,7 @@ describe('auth', function() {
 		before(function(done) {
 			var user = new User();
 			user.username = 'test';
-			user. basic.username = 'test';
+			user.basic.username = 'testuser';
 			user.generateHash('foobar123', function(err, res) {
 				if (err) throw err;
 				user.save(function(err, data) {
@@ -88,7 +88,3 @@ describe('auth', function() {
 		});
 	});
 });
-
-
-
-
