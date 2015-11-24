@@ -1,18 +1,17 @@
-module.exports = function(req, res, next) {
-	try {
-		var authString = req.headers.authorization;
-		var basicString = authString.split(' ')[1];
-		var basicBuffer = new Buffer(basicString, 'base64');
-		var authArray = basicBuffer.toString().split(':');
+module.exports = exports = function(req, res, next) {
+		var authString = (req.headers.authorization || ' :').split(' ')[1];
+		var basicBuffer = new Buffer(authString, 'base64');
+		var authArray = basicBuffer.toString('utf8');
+		var basicString = authArray.split(':');
 		req.auth = {
-			username: authArray[0],
-			password: authArray[1]
+			username: basicString[0],
+			password: basicString[1]
 		};
-		debugger;
+
+		if(!(req.auth.username.length && req.auth.password.length)) {
+			console.log('Could not authenticat ' + req.auth.username);
+			return res.status(401).send({msg: 'authentiCat seyzzz no!!1'});
+		}
 		next();
-	} catch(e) {
-		debugger;
-		console.log(e);
-		return res.status(401).json({msg: 'authentiCat seyzzz now!!1'});
-	}
+	
 };

@@ -26,3 +26,7 @@ Rubric
   * Use of Mongo: 3pts
   * Tests: 2pts
   * Project Organization: 2pts
+
+# add_a_client_side
+
+Add a client side to one of your REST APIs. For now this should be a simple angular app that describes what the app does. You should have a web pack bundle that loads an Angular app with a simple two way data binding. 

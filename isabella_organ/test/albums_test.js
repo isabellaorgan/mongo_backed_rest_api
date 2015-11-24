@@ -1,14 +1,13 @@
 var chai = require('chai');
-var expect = require('chai').expect;
-var chaihttp = require('chai-http');
-
-chai.use(chaihttp);
-
-process.env.MONGOLAB_URI = 'mongodb://localhost/album_test';
-require(__dirname + '/../server.js');
+var expect = chai.expect;
+var chaiHttp = require('chai-http');
+chai.use(chaiHttp);
 var mongoose = require('mongoose');
 var Album = require(__dirname + '/../models/album');
 var User = require(__dirname + '/../models/user');
+
+process.env.MONGOLAB_URI = 'mongodb://localhost/album_test';
+require(__dirname + '/../server.js');
 
 describe('album routes', function() {
 	after(function(done) {
