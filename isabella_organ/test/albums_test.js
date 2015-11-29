@@ -40,8 +40,8 @@ describe('album routes', function() {
 	it('should be able to add an album', function(done) {
 		var albumData = {name: 'test album', genre: 'unknown', decade: 'unknown'};
 		chai.request('localhost:3000')
-			.post('api/albums')
-			.send({albumData: 'test album', token: this.token})
+			.post('/api/albums')
+			.send(this.albumData)
 			.end(function(err, res) {
 				expect(err).to.eql(null);
 				expect(res.body.name).to.eql('test album');
@@ -54,10 +54,10 @@ describe('album routes', function() {
 
 	it('should be able to collect all of the albums', function(done) {
 			chai.request('localhost:3000')
-				.get('api/albums')
+				.get('/api/albums')
 				.end(function(err, res) {
 					expect(err).to.eql(null);
-					expect(Array.isArray(res.body)).to.eql('true');
+					expect(Array.isArray(res.body)).to.eql(true);
 					done();
 				});
 	});
