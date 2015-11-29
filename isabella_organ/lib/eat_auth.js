@@ -3,10 +3,10 @@ var User = require(__dirname + '/../models/user');
 var handleError = require(__dirname + '/handleServerError');
 
 module.exports = exports = function(req, res, next) {
-	var encryptedToken = req.headers.token || (req.body) ? req.body.token : undefined;
+	var encryptedToken = req.headers.token || ((req.body) ? req.body.token : undefined);
 	if (!encryptedToken) {
 		console.log('no token');
-		return res.status(401).json({msg: 'AuthentiCat seyezzz noeee and is wacthing you!!'});
+		return res.status(401).json({msg: 'AuthentiCat seyezzz noeee and is watching you!!'});
 	}
 
 	eat.decode(encryptedToken, process.env.APP_SECRET, function(err, token) {

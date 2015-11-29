@@ -10,6 +10,27 @@ process.env.MONGOLAB_URI = 'mongodb://localhost/album_test';
 require(__dirname + '/../server.js');
 
 describe('album routes', function() {
+	beforeEach(function(done) {
+		this.albumData = {name: 'test album', dj: 'a dj'};
+		done();
+	});
+
+	before(function(done) {
+		var user = new User();
+		user.username = 'testusername';
+		user.hashPassword('testpassword', function(err, res) {
+			if (err) throw err;
+			user.save(function(err, data) {
+				if (err) throw err;
+				user.generateToken(function(err, token) {
+					if (err) throw err;
+					this.token = token;
+				}.bind(this));
+				done();
+			}.bind(this));
+		});
+	});
+
 	after(function(done) {
 		mongoose.connection.db.dropDatabase(function() {
 			done();

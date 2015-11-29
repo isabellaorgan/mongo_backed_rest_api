@@ -14,6 +14,14 @@ albumsRouter.get('/albums', function(req, res) {
 	});
 });
 
+albumsRouter.post('/albums', bodyParser.json(), eatAuth, function(req, res) {
+	var newAlbum = new Album(req.body);
+	newAlbum.save(function(err, data) {
+		if (err) return handleError(err, res);
+		res.send(data);
+	});
+});
+
 albumsRouter.put('/albums/:id', bodyParser.json, eatAuth, function(req, res) {
 	var albumData = req.body;
 	delete albumData._id;
